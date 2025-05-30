@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultras - Summer Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+        .product-card img {
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #4F46E5;
+            transition: width 0.3s ease;
+        }
+        .section-title:hover:after {
+            width: 100%;
+        }
+        .view-all-link {
+            color: #4F46E5;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .view-all-link:hover {
+            text-decoration: underline;
+            transform: translateX(5px);
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #333;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 20;
+            opacity: 0;
+        }
+        .hero-bg:hover .slider-arrow {
+            opacity: 1;
+        }
+        .slider-arrow:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slider-arrow.left {
+            left: 1.5rem;
+        }
+        .slider-arrow.right {
+            right: 1.5rem;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4F46E5;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
+        .cart-badge {
+            transition: transform 0.3s ease;
+        }
+        button:hover .cart-badge {
+            transform: scale(1.2);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50 animate-fadeIn">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-3xl font-bold text-indigo-600 hover:text-indigo-700 transition">Ultras.</a>
+                </div>
+
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Home</a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Men</a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Women</a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Kids</a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Collections</a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Sale</a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-indigo-600 transition duration-150">Blog</a>
+                </nav>
+
+                <div class="hidden md:flex items-center space-x-5">
+                    <button class="text-gray-500 hover:text-indigo-600 transition duration-150 transform hover:scale-110">
+                        <i class="fas fa-search fa-lg"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-indigo-600 transition duration-150 transform hover:scale-110">
+                        <i class="fas fa-user fa-lg"></i>
+                    </button>
+                    <button class="relative text-gray-500 hover:text-indigo-600 transition duration-150 transform hover:scale-110">
+                        <i class="fas fa-shopping-bag fa-lg"></i>
+                        <span class="cart-badge absolute -top-2 -right-2 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-indigo-600 focus:outline-none transform hover:scale-110 transition">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200 animate-fadeIn">
+            <nav class="px-2 pt-2 pb-4 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Home</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Men</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Women</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Kids</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Collections</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Sale</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition">Blog</a>
+                 <div class="pt-4 pb-3 border-t border-gray-200">
+                    <div class="flex items-center justify-around px-5">
+                        <button class="text-gray-500 hover:text-indigo-600 transition duration-150 transform hover:scale-110">
+                            <i class="fas fa-search fa-lg"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-indigo-600 transition duration-150 transform hover:scale-110">
+                            <i class="fas fa-user fa-lg"></i>
+                        </button>
+                        <button class="relative text-gray-500 hover:text-indigo-600 transition duration-150 transform hover:scale-110">
+                            <i class="fas fa-shopping-bag fa-lg"></i>
+                            <span class="cart-badge absolute -top-2 -right-2 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="relative hero-bg h-[calc(100vh-80px)] min-h-[500px] flex items-center overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-xl text-white" data-aos="fade-right" data-aos-duration="1000">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">Summer Collection.</h1>
+                <p class="text-lg md:text-xl mb-8">Discover the latest trends for this summer. Fresh styles, vibrant colors, and comfortable fits for every occasion.</p>
+                <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 inline-block transform hover:scale-105 shadow-lg hover:shadow-xl">Shop Now</a>
+            </div>
+        </div>
+        <div class="slider-arrow left hidden sm:flex">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="slider-arrow right hidden sm:flex">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8 md:mb-12">
+                <h2 class="section-title" data-aos="fade-right">Featured Products</h2>
+                <a href="#" class="view-all-link" data-aos="fade-left">View All Products <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Full Sleeve Cover Shirt" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Full Sleeve Cover Shirt</h3>
+                        <p class="text-indigo-600 font-bold text-xl">$40.00</p>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Volunteer Half Blue" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Volunteer Half Blue</h3>
+                        <p class="text-indigo-600 font-bold text-xl">$35.00</p>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Double Yellow Shirt" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Double Yellow Shirt</h3>
+                        <p class="text-indigo-600 font-bold text-xl">$36.00</p>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Long Belly Grey Pant" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Long Belly Grey Pant</h3>
+                        <p class="text-indigo-600 font-bold text-xl">$32.00</p>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-20 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="relative rounded-lg overflow-hidden shadow-lg group col-span-1 md:col-span-2 h-96" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Street Wear" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-start justify-end p-8">
+                        <h3 class="text-gray-200 text-sm uppercase tracking-wider mb-1">Urban Collection</h3>
+                        <h2 class="text-white text-3xl md:text-4xl font-bold mb-4">Street Wear.</h2>
+                        <a href="#" class="bg-white text-gray-800 hover:bg-gray-200 font-semibold py-2 px-6 rounded-md transition duration-300 transform hover:scale-105">Shop Now</a>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-1 space-y-6 md:space-y-8">
+                    <div class="relative rounded-lg overflow-hidden shadow-lg group h-44 md:h-[calc(50%-1rem)]" data-aos="fade-left" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Basic Shoes" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-start justify-end p-6">
+                            <h3 class="text-white text-2xl font-bold">Basic Shoes.</h3>
+                            <a href="#" class="text-white hover:underline text-sm font-medium mt-1 transition transform hover:translate-x-1">View Collection <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="relative rounded-lg overflow-hidden shadow-lg group h-44 md:h-[calc(50%-1rem)]" data-aos="fade-left" data-aos-delay="400">
+                        <img src="https://images.unsplash.com/photo-1534215754734-18e55d13e346?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Woolen Hat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-start justify-end p-6">
+                            <h3 class="text-white text-2xl font-bold">Woolen Hat.</h3>
+                            <a href="#" class="text-white hover:underline text-sm font-medium mt-1 transition transform hover:translate-x-1">Shop Hats <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8 md:mb-12">
+                <h2 class="section-title" data-aos="fade-right">Flash Sales</h2>
+                <div class="flex items-center" data-aos="fade-left">
+                    <span class="text-sm font-medium text-gray-500 mr-3">Ends in:</span>
+                    <div class="bg-indigo-600 text-white px-3 py-1 rounded-md font-bold">12:34:56</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">50% OFF</div>
+                        <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Urban Hoodie" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Urban Hoodie</h3>
+                        <div class="flex items-baseline space-x-2">
+                            <p class="text-red-500 font-bold text-xl">$25.00</p>
+                            <p class="text-gray-500 line-through text-sm">$50.00</p>
+                        </div>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">35% OFF</div>
+                        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Classic Denim" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Classic Denim</h3>
+                        <div class="flex items-baseline space-x-2">
+                            <p class="text-red-500 font-bold text-xl">$45.00</p>
+                            <p class="text-gray-500 line-through text-sm">$70.00</p>
+                        </div>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">40% OFF</div>
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Summer Tee" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Summer Tee</h3>
+                         <div class="flex items-baseline space-x-2">
+                            <p class="text-red-500 font-bold text-xl">$15.00</p>
+                            <p class="text-gray-500 line-through text-sm">$25.00</p>
+                        </div>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">50% OFF</div>
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Light Scarf" class="w-full h-64 sm:h-80 object-cover group-hover:opacity-90">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">Light Scarf</h3>
+                        <div class="flex items-baseline space-x-2">
+                            <p class="text-red-500 font-bold text-xl">$12.00</p>
+                            <p class="text-gray-500 line-through text-sm">$20.00</p>
+                        </div>
+                        <button class="mt-3 bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-indigo-700 transition transform hover:scale-105 hidden group-hover:block w-full">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-20 bg-indigo-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white p-8 md:p-12 rounded-lg shadow-xl" data-aos="zoom-in">
+                <div class="md:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Casual Selection" class="rounded-lg shadow-md w-full h-auto object-cover floating">
+                    <div class="absolute -bottom-5 -right-5 bg-indigo-600 text-white p-3 rounded-full shadow-lg pulse hidden md:block">
+                        <i class="fas fa-tag text-xl"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h3 class="text-indigo-600 text-sm uppercase tracking-wider font-semibold mb-2">New Arrivals</h3>
+                    <h2 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6">The Casual Selection</h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Embrace comfort and style with our new casual collection. Perfect for everyday wear, these pieces are designed to make you look and feel great.
+                    </p>
+                    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 inline-block transform hover:scale-105 shadow-lg hover:shadow-xl">Explore Casuals</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-20 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fas fa-quote-left text-4xl text-indigo-400 mb-6" data-aos="fade-down"></i>
+            <h2 class="section-title mb-4" data-aos="fade-up">Quotes Of The Day</h2>
+            <blockquote class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6" data-aos="fade-up" data-aos-delay="200">
+                "Fashion is the armor to survive the reality of everyday life. I don't design clothes. I design dreams."
+            </blockquote>
+            <p class="text-gray-500 font-medium" data-aos="fade-up" data-aos-delay="400">- Bill Cunningham / Ralph Lauren (paraphrased)</p>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8 md:mb-12">
+                <h2 class="section-title" data-aos="fade-right">Our Journal</h2>
+                <a href="#" class="view-all-link" data-aos="fade-left">Read All Articles <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Style Tips" class="w-full h-48 object-cover group-hover:opacity-90 transition-opacity">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full text-xs font-semibold mr-2">Fashion</span>
+                            <span>May 22, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 hover:text-indigo-600 transition">Top 10 Fashion Trends To Look For This Summer</h3>
+                        <p class="text-gray-600 text-sm mb-4">Discover the hottest styles and how to incorporate them into your wardrobe...</p>
+                        <a href="#" class="font-medium text-indigo-600 hover:underline transition transform hover:translate-x-1">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Behind Scenes" class="w-full h-48 object-cover group-hover:opacity-90 transition-opacity">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-xs font-semibold mr-2">Lifestyle</span>
+                            <span>May 25, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 hover:text-indigo-600 transition">Sustainable Fashion: Making a Difference</h3>
+                        <p class="text-gray-600 text-sm mb-4">Learn about our commitment to sustainability and how you can join the movement...</p>
+                        <a href="#" class="font-medium text-indigo-600 hover:underline transition transform hover:translate-x-1">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                     <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Outfit Ideas" class="w-full h-48 object-cover group-hover:opacity-90 transition-opacity">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs font-semibold mr-2">Styling</span>
+                             <span>May 28, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 hover:text-indigo-600 transition">5 Ways to Style Your Basic White Tee</h3>
+                        <p class="text-gray-600 text-sm mb-4">Unlock the versatility of this wardrobe staple with these creative outfit ideas...</p>
+                        <a href="#" class="font-medium text-indigo-600 hover:underline transition transform hover:translate-x-1">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-indigo-600 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="zoom-in">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Subscribe to Our Newsletter</h2>
+            <p class="max-w-2xl mx-auto text-lg mb-8">Get the latest updates on new products, upcoming sales, and exclusive offers straight to your inbox.</p>
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button class="bg-indigo-800 hover:bg-indigo-900 px-6 py-3 rounded-r-lg font-semibold transition">Subscribe</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-300 py-12 md:py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4">Ultras.</h3>
+                    <p class="text-sm">Your destination for modern fashion and timeless style. Discover new collections every season.</p>
+                     <div class="flex space-x-4 mt-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-pinterest-p fa-lg"></i></a>
+                    </div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="text-lg font-semibold text-white mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Men's Collection</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Women's Collection</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Accessories</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Sale</a></li>
+                    </ul>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="text-lg font-semibold text-white mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Press</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Affiliates</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="text-lg font-semibold text-white mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">FAQs</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Track Order</a></li>
+                        <li><a href="#" class="hover:text-white transition transform hover:translate-x-1 block">Size Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm" data-aos="fade-up">
+                <p>Copyright &copy; <span id="currentYear"></span> Ultras. All rights reserved. Designed by | web_developer__55</p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out'
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Hero slider functionality
+        const heroSection = document.querySelector('.hero-bg');
+        const heroImages = [
+            'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80'
+        ];
+        
+        // Set initial image
+        heroSection.style.backgroundImage = `url('${heroImages[0]}')`;
+        
+        let currentImageIndex = 0;
+
+        const updateHeroImage = () => {
+            if (heroSection) {
+                heroSection.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
+            }
+        }
+
+        const nextImage = () => {
+            currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+            updateHeroImage();
+        };
+
+        const prevImage = () => {
+            currentImageIndex = (currentImageIndex - 1 + heroImages.length) % heroImages.length;
+            updateHeroImage();
+        };
+        
+        const leftArrow = document.querySelector('.slider-arrow.left');
+        const rightArrow = document.querySelector('.slider-arrow.right');
+
+        if(leftArrow && rightArrow){
+            leftArrow.addEventListener('click', prevImage);
+            rightArrow.addEventListener('click', nextImage);
+        }
+
+        // Auto-slide
+        setInterval(nextImage, 5000); // Change image every 5 seconds
+
+        // Countdown timer for flash sale
+        function updateCountdown() {
+            const now = new Date();
+            const endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999);
+            
+            const diff = endOfDay - now;
+            
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.querySelector('.bg-indigo-600').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+    </script>
+</body>
+</html>
